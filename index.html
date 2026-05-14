@@ -250,6 +250,18 @@
         font-size: 0.9rem;
       }
 
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
       @media (max-width: 900px) {
         .hero-grid,
         .metrics,
@@ -413,8 +425,9 @@
         <div class="container" style="padding: 3rem 0">
           <h2 id="cta-heading">Build the monsoon economy with RainPlan</h2>
           <p class="subtext">Join as a launch partner, host, or early tourist user.</p>
-          <form class="form" action="#" method="post" id="demo-form" aria-labelledby="cta-heading">
-            <input type="email" name="email" required placeholder="Enter your email" aria-label="Email address" />
+          <form class="form" method="post" id="demo-form" aria-labelledby="cta-heading">
+            <label class="sr-only" for="email">Email address</label>
+            <input id="email" type="email" name="email" required placeholder="Enter your email" />
             <button class="btn btn-primary" type="submit">Request Demo</button>
           </form>
           <p id="demo-form-message" aria-live="polite"></p>
@@ -426,6 +439,8 @@
       document.getElementById('demo-form').addEventListener('submit', function (event) {
         event.preventDefault();
         document.getElementById('demo-form-message').textContent = 'Thanks! We will contact you soon.';
+        event.target.reset();
+        document.getElementById('email').focus();
       });
     </script>
   </body>
