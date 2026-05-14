@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RainPlan | Real-Time Rain Activity Platform for Goa</title>
+    <meta
+      name="description"
+      content="RainPlan helps tourists in Goa discover nearby indoor experiences during rain while helping local hosts get real-time bookings."
+    />
+    <style>
+      :root {
+        --primary: #1a56a0;
+        --gray: #6b7e8f;
+        --amber: #f5a623;
+        --bg: #f5f7fa;
+        --success: #27ae60;
+        --alert: #e74c3c;
+        --text: #1f2a37;
+        --card: #ffffff;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        font-family: Inter, Nunito, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        color: var(--text);
+        background: var(--bg);
+        line-height: 1.6;
+      }
+
+      .container {
+        width: min(1120px, 92vw);
+        margin: 0 auto;
+      }
+
+      header {
+        position: sticky;
+        top: 0;
+        z-index: 10;
+        background: rgba(245, 247, 250, 0.92);
+        backdrop-filter: blur(8px);
+        border-bottom: 1px solid #dbe3eb;
+      }
+
+      .nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-height: 70px;
+      }
+
+      .brand {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: var(--primary);
+      }
+
+      .nav a {
+        color: var(--gray);
+        text-decoration: none;
+        margin-left: 1.25rem;
+        font-size: 0.95rem;
+      }
+
+      .btn {
+        display: inline-block;
+        border: 0;
+        border-radius: 12px;
+        padding: 0.8rem 1.2rem;
+        text-decoration: none;
+        font-weight: 600;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: #fff;
+      }
+
+      .btn-secondary {
+        background: #fff;
+        color: var(--primary);
+        border: 1px solid #c8d8ea;
+      }
+
+      .hero {
+        padding: 5rem 0 4rem;
+      }
+
+      .hero-grid {
+        display: grid;
+        grid-template-columns: 1.1fr 0.9fr;
+        gap: 2rem;
+        align-items: center;
+      }
+
+      h1 {
+        font-size: clamp(2rem, 4.2vw, 3rem);
+        line-height: 1.2;
+        margin: 0 0 1rem;
+      }
+
+      h2 {
+        font-size: clamp(1.5rem, 2.6vw, 2rem);
+        margin: 0 0 0.75rem;
+      }
+
+      h3 {
+        margin: 0 0 0.4rem;
+      }
+
+      .subtext {
+        color: var(--gray);
+        max-width: 58ch;
+      }
+
+      .hero-cta {
+        display: flex;
+        gap: 0.8rem;
+        margin: 1.5rem 0 1.2rem;
+        flex-wrap: wrap;
+      }
+
+      .badges {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+      }
+
+      .badge {
+        background: #eaf1f8;
+        color: var(--primary);
+        padding: 0.35rem 0.7rem;
+        border-radius: 999px;
+        font-size: 0.8rem;
+        font-weight: 600;
+      }
+
+      .panel {
+        background: var(--card);
+        border-radius: 16px;
+        padding: 1.2rem;
+        box-shadow: 0 10px 30px rgba(26, 86, 160, 0.08);
+      }
+
+      .weather {
+        border-left: 4px solid var(--primary);
+        margin-bottom: 0.8rem;
+      }
+
+      .grid-3,
+      .grid-2,
+      .metrics,
+      .phase-grid,
+      .q-grid {
+        display: grid;
+        gap: 1rem;
+      }
+
+      .metrics { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+      .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .grid-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .phase-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .q-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+      section {
+        padding: 3rem 0;
+      }
+
+      .card {
+        background: var(--card);
+        border-radius: 12px;
+        padding: 1rem;
+        box-shadow: 0 6px 20px rgba(16, 42, 67, 0.06);
+      }
+
+      .metric {
+        text-align: center;
+      }
+
+      .metric strong {
+        display: block;
+        font-size: 1.35rem;
+        color: var(--primary);
+      }
+
+      .pill {
+        display: inline-block;
+        font-size: 0.75rem;
+        background: #fff4de;
+        color: #7a5507;
+        padding: 0.25rem 0.5rem;
+        border-radius: 6px;
+        margin-bottom: 0.5rem;
+      }
+
+      .checklist {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+
+      .checklist li {
+        margin: 0.45rem 0;
+        padding-left: 1.3rem;
+        position: relative;
+      }
+
+      .checklist li::before {
+        content: "✓";
+        position: absolute;
+        left: 0;
+        color: var(--success);
+        font-weight: 700;
+      }
+
+      .warning li::before {
+        content: "•";
+        color: var(--alert);
+      }
+
+      .cta {
+        background: linear-gradient(145deg, #154680, #1a56a0);
+        color: #fff;
+      }
+
+      .cta .subtext,
+      footer {
+        color: #d6e3f0;
+      }
+
+      .form {
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        margin-top: 1rem;
+      }
+
+      input[type="email"] {
+        border: 1px solid #cbd5e1;
+        border-radius: 10px;
+        padding: 0.75rem 0.9rem;
+        min-width: 240px;
+        flex: 1;
+      }
+
+      footer {
+        margin-top: 1.5rem;
+        font-size: 0.9rem;
+      }
+
+      @media (max-width: 900px) {
+        .hero-grid,
+        .metrics,
+        .grid-3,
+        .grid-2,
+        .phase-grid,
+        .q-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .nav div:last-child { display: none; }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <div class="container nav">
+        <div class="brand">🌧️ RainPlan</div>
+        <div>
+          <a href="#solution">Solution</a>
+          <a href="#features">Features</a>
+          <a href="#hosts">Hosts</a>
+          <a href="#launch">Launch</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <section class="hero container" id="solution">
+        <div class="hero-grid">
+          <div>
+            <h1>Turn rainy days in Goa into instant, bookable plans.</h1>
+            <p class="subtext">
+              RainPlan is a two-sided platform: tourists discover nearby indoor experiences in seconds,
+              while local hosts get real-time bookings when rain starts.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="#cta">Join Early Access</a>
+              <a class="btn btn-secondary" href="#features">See Product Scope</a>
+            </div>
+            <div class="badges">
+              <span class="badge">Tourist App + Host App</span>
+              <span class="badge">Goa-first MVP</span>
+              <span class="badge">Rain-triggered discovery</span>
+            </div>
+          </div>
+          <div class="panel">
+            <div class="panel weather">
+              <strong>Live Weather Bar</strong>
+              <div>Heavy Rain • 29°C • 88% humidity</div>
+              <small>Rain expected for next 3 hours</small>
+            </div>
+            <div class="panel">
+              <strong>Nearby Indoor Experiences</strong>
+              <ul>
+                <li>Feni tasting workshop • 1.2 km • 2 hours</li>
+                <li>Pottery class • 2.0 km • 1.5 hours</li>
+                <li>Monsoon cafe board game night • 0.8 km • 2 hours</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="container">
+        <h2>Why now</h2>
+        <div class="metrics">
+          <div class="card metric"><strong>9M+</strong> tourists/year in Goa</div>
+          <div class="card metric"><strong>4+ months</strong> of heavy rain</div>
+          <div class="card metric"><strong>1,000+</strong> tourist users target</div>
+          <div class="card metric"><strong>50+</strong> host listings target</div>
+          <div class="card metric"><strong>100+</strong> bookings/rain event</div>
+        </div>
+      </section>
+
+      <section class="container" id="features">
+        <h2>Tourist app experience</h2>
+        <p class="subtext">From install to discovery in under 30 seconds.</p>
+        <div class="grid-3">
+          <article class="card">
+            <span class="pill">Onboarding</span>
+            <h3>Fast setup</h3>
+            <ul class="checklist">
+              <li>Location permission</li>
+              <li>Google or phone sign-up</li>
+              <li>Time window selection</li>
+            </ul>
+          </article>
+          <article class="card">
+            <span class="pill">Discovery</span>
+            <h3>Smart home feed</h3>
+            <ul class="checklist">
+              <li>Rain intensity + forecast refresh every 15 min</li>
+              <li>Nearby indoor activity cards with slots</li>
+              <li>Filters by price, duration, category, distance</li>
+            </ul>
+          </article>
+          <article class="card">
+            <span class="pill">Conversion</span>
+            <h3>3-tap booking flow</h3>
+            <ul class="checklist">
+              <li>Pick slot</li>
+              <li>Select people (1–10)</li>
+              <li>Pay via Razorpay and confirm instantly</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="container" id="hosts">
+        <h2>Host app built for simplicity</h2>
+        <div class="grid-2">
+          <article class="card">
+            <h3>Onboarding for low-tech users</h3>
+            <ul class="checklist">
+              <li>Phone OTP signup</li>
+              <li>KYC + bank details for payouts</li>
+              <li>Guided listing creation and admin approval</li>
+            </ul>
+          </article>
+          <article class="card">
+            <h3>Tools to run daily operations</h3>
+            <ul class="checklist">
+              <li>Today + 7-day booking view</li>
+              <li>Accept/decline with auto-accept fallback</li>
+              <li>Earnings breakdown with 8% commission clarity</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+
+      <section class="container" id="launch">
+        <h2>MVP to scale roadmap</h2>
+        <div class="phase-grid">
+          <article class="card">
+            <h3>Phase 1 (Month 1–2)</h3>
+            <p>Rain detection, activity feed, listing + booking, 20 hosts in Panjim.</p>
+          </article>
+          <article class="card">
+            <h3>Phase 2 (Month 3–4)</h3>
+            <p>Reviews, SuperHost badge, earnings dashboard, rain push alerts, North Goa expansion.</p>
+          </article>
+          <article class="card">
+            <h3>Phase 3 (Month 5–6)</h3>
+            <p>Hindi support, pre-booking, group bookings, expansion to other monsoon destinations.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="container">
+        <h2>Out of scope for v1</h2>
+        <ul class="checklist warning">
+          <li>In-app chat between tourist and host</li>
+          <li>Multi-city support beyond Goa</li>
+          <li>Web booking app for end users</li>
+          <li>Loyalty and referral programs</li>
+        </ul>
+      </section>
+
+      <section class="cta" id="cta">
+        <div class="container" style="padding: 3rem 0">
+          <h2>Build the monsoon economy with RainPlan</h2>
+          <p class="subtext">Join as a launch partner, host, or early tourist user.</p>
+          <form class="form" action="#" method="post" onsubmit="event.preventDefault(); alert('Thanks! We will contact you soon.');">
+            <input type="email" required placeholder="Enter your email" aria-label="Email address" />
+            <button class="btn btn-primary" type="submit">Request Demo</button>
+          </form>
+          <footer>RainPlan PRD v1.0 inspired landing page • Goa, India</footer>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
