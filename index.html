@@ -411,12 +411,13 @@
 
       <section class="cta" id="cta">
         <div class="container" style="padding: 3rem 0">
-          <h2>Build the monsoon economy with RainPlan</h2>
+          <h2 id="cta-heading">Build the monsoon economy with RainPlan</h2>
           <p class="subtext">Join as a launch partner, host, or early tourist user.</p>
-          <form class="form" action="#" method="post" id="demo-form">
-            <input type="email" required placeholder="Enter your email" aria-label="Email address" />
+          <form class="form" action="#" method="post" id="demo-form" aria-labelledby="cta-heading">
+            <input type="email" name="email" required placeholder="Enter your email" aria-label="Email address" />
             <button class="btn btn-primary" type="submit">Request Demo</button>
           </form>
+          <p id="demo-form-message" aria-live="polite"></p>
           <footer>RainPlan PRD v1.0 inspired landing page • Goa, India</footer>
         </div>
       </section>
@@ -424,7 +425,7 @@
     <script>
       document.getElementById('demo-form').addEventListener('submit', function (event) {
         event.preventDefault();
-        alert('Thanks! We will contact you soon.');
+        document.getElementById('demo-form-message').textContent = 'Thanks! We will contact you soon.';
       });
     </script>
   </body>
