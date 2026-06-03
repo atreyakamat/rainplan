@@ -1,51 +1,35 @@
-import { useEffect } from 'react'
-import { motion, useScroll, useSpring } from 'framer-motion'
+import { ReactLenis } from 'lenis/react'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import TheProblem from './components/TheProblem'
-import ThreePillars from './components/ThreePillars'
-import WeatherIntelligence from './components/WeatherIntelligence'
-import MissYourFlight from './components/MissYourFlight'
+import BentoGrid from './components/BentoGrid'
+import HowItWorks from './components/HowItWorks'
 import BuiltWithLocals from './components/BuiltWithLocals'
-import LaunchJourney from './components/LaunchJourney'
+import GoaLaunch from './components/GoaLaunch'
+import SEOEditorial from './components/SEOEditorial'
 import FinalCTA from './components/FinalCTA'
 import Footer from './components/Footer'
 
 function App() {
-  const { scrollYProgress } = useScroll()
-  const scaleX = useSpring(scrollYProgress, {
-    stiffness: 100,
-    damping: 30,
-    restDelta: 0.001
-  })
-
-  useEffect(() => {
-    // Add smooth scroll behavior or other global initializations
-  }, [])
-
   return (
-    <div className="relative min-h-screen">
-      {/* Progress Bar */}
-      <motion.div
-        className="fixed top-0 left-0 right-0 h-1 bg-olive-700 origin-left z-50"
-        style={{ scaleX }}
-      />
+    <ReactLenis root>
+      <div className="relative min-h-screen bg-white selection:bg-olive-700 selection:text-white">
+        <Navbar />
+        
+        <main>
+          <Hero />
+          <TheProblem />
+          <BentoGrid />
+          <HowItWorks />
+          <BuiltWithLocals />
+          <GoaLaunch />
+          <SEOEditorial />
+          <FinalCTA />
+        </main>
 
-      <Navbar />
-      
-      <main>
-        <Hero />
-        <TheProblem />
-        <ThreePillars />
-        <WeatherIntelligence />
-        <MissYourFlight />
-        <BuiltWithLocals />
-        <LaunchJourney />
-        <FinalCTA />
-      </main>
-
-      <Footer />
-    </div>
+        <Footer />
+      </div>
+    </ReactLenis>
   )
 }
 

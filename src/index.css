@@ -38,11 +38,11 @@
 
 @layer base {
   html {
-    scroll-behavior: smooth;
+    scroll-behavior: initial; /* Lenis handles smooth scrolling */
   }
   
   body {
-    @apply bg-white text-slate-900 font-sans selection:bg-olive-700 selection:text-white;
+    @apply bg-white text-slate-900 font-sans antialiased;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -60,17 +60,37 @@
   }
 
   .premium-button-primary {
-    @apply px-8 py-4 rounded-full font-medium transition-all duration-300 active:scale-95 bg-olive-700 text-white hover:bg-olive-800;
+    @apply px-8 py-4 rounded-full font-medium transition-all duration-300 active:scale-95 bg-olive-700 text-white hover:bg-olive-800 shadow-lg;
   }
 
   .premium-button-secondary {
-    @apply px-8 py-4 rounded-full font-medium transition-all duration-300 active:scale-95 bg-white text-olive-900 border border-olive-200 hover:border-olive-400 hover:bg-olive-50;
+    @apply px-8 py-4 rounded-full font-medium transition-all duration-300 active:scale-95 bg-white text-olive-900 border border-olive-200 hover:border-olive-400 hover:bg-olive-50 shadow-sm;
+  }
+
+  .grain {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0.05;
+    background-image: url('https://grainy-gradients.vercel.app/noise.svg');
+  }
+
+  .text-reveal {
+    overflow: hidden;
+  }
+
+  .text-reveal span {
+    display: inline-block;
   }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 
 ::-webkit-scrollbar-track {
@@ -81,12 +101,8 @@
   @apply bg-olive-200 rounded-full hover:bg-olive-300 transition-colors;
 }
 
-/* Terrain Map Lines Animation */
+/* Terrain Map Lines */
 .terrain-lines {
   background-image: radial-gradient(circle at 2px 2px, rgba(85, 107, 47, 0.05) 1px, transparent 0);
-  background-size: 40px 40px;
-}
-
-.parallax-bg {
-  transform: translateZ(0);
+  background-size: 60px 60px;
 }
